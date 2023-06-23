@@ -32,7 +32,7 @@ class AccountController extends Controller
                     ->whereNull('social_provider')
                     ->first();
 
-                $accessToken = createTooken($user);
+                $accessToken = $this->createTooken($user);
 
                 return Response::json([
                     'user' => $user,
@@ -64,7 +64,7 @@ class AccountController extends Controller
             $user = User::create($data);
 
             if ($user) {
-                $tookenAuth = createTooken($user[0]);
+                $tookenAuth = $this->createTooken($user[0]);
                 return Response::json([
                     'user' => [
                         'name' => $user['name'],
@@ -130,5 +130,22 @@ class AccountController extends Controller
         ];
 
         $request->validate($rules, $messages, $attributes);
+    }
+
+    function createTooken($user)
+    {
+        if ($user) {
+
+            $tokenResult = $user->createToken('token_auth');
+
+            // Thiết lập Expires
+            $token = $tokenResult->token;
+            $token->expires_at = Carbon::now()->addMinutes(1);
+            $token->save();
+            // Trả về token
+            $accessToken = $tokenResult->accessToken;
+            return $accessToken;
+        }
+        return null;
     }
 }
