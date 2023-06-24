@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Client\Auth\AccountController;
 use App\Http\Controllers\Api\Client\Auth\GoogleController;
 use App\Http\Controllers\Api\Client\MenuPageController;
 use App\Http\Controllers\Api\Client\Page\BookingController;
+use App\Http\Controllers\Api\Client\Page\CartController;
 use App\Http\Controllers\Api\Client\Page\HomePageController;
 use Illuminate\Support\Facades\Route;
 
@@ -92,4 +93,6 @@ Route::prefix('client')->group(function () {
         Route::post('create', 'create');
         Route::get('menu', 'menuBoking');
     });
+
+    Route::post('order-online', [CartController::class, 'orderOnline']);
 });

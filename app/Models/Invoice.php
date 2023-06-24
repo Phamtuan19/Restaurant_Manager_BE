@@ -12,12 +12,14 @@ class Invoice extends Model
     protected $table = 'invoice';
 
     protected $fillable = [
+        'booking_id',
         'user_id',
         'table_id',
-        'total_price',
         'quantity',
         'status_id',
+        'payment_id',
         'staff_id',
+        'invoice_type',
     ];
 
     public function status()
