@@ -102,7 +102,6 @@ class AccountController extends Controller
     public function authUser()
     {
         $user = Auth::user();
-
         if ($user) {
             $user = User::with('roles')->find($user->id);
             return response()->json([
@@ -140,7 +139,7 @@ class AccountController extends Controller
 
             // Thiết lập Expires
             $token = $tokenResult->token;
-            $token->expires_at = Carbon::now()->addMinutes(1);
+            $token->expires_at = Carbon::now()->addMinutes(60);
             $token->save();
             // Trả về token
             $accessToken = $tokenResult->accessToken;
