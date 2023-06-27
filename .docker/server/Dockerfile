@@ -24,14 +24,8 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN ln -s /usr/local/bin/composer /usr/bin/composer
 
-# Install unzip
-RUN yum -y install unzip
-
-# Install XDebug
-RUN yum -y install php-xdebug
-
 # Install Set LANG, Timezone
-ENV TZ Asia/Tokyo
+ENV TZ Asia/Ho_Chi_Minh
 
 WORKDIR /var/www/html
 
