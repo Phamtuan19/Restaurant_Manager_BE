@@ -1,20 +1,20 @@
-# Sử dụng hình ảnh PHP chính thức của Laravel
-FROM laravel:latest
+FROM richarvey/nginx-php-fpm:1.7.2
 
-# Sao chép mã nguồn Laravel vào thư mục /var/www
-COPY . /var/www
+COPY . .
 
-# Cài đặt các phụ thuộc
-RUN composer install
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-# Chạy các lệnh khởi tạo cần thiết (nếu có)
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
 
-# Khai báo các biến môi trường
-ENV APP_ENV=production
-ENV APP_KEY=base64:NkoSs52ahzgFTXOgpmnzR24RbNL+OnrqQeSZHGJ5amA=
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# Mở cổng 80 để truy cập ứng dụng Laravel
-EXPOSE 80
-
-# Khởi chạy ứng dụng Laravel
-CMD php artisan serve --host=0.0.0.0 --port=80
+CMD ["/start.sh"]
