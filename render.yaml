@@ -1,0 +1,4 @@
+services:
+  - name: web
+    buildCommand: docker build -t your_docker_image_name .
+    startCommand: docker run -p 80:80 your_docker_image_name
