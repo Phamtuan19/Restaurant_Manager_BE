@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 /.github
 /.docker/db_mysql/*
+/.docker/server/logs/httpd/*
