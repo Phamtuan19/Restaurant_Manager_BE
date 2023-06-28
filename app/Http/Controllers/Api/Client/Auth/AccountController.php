@@ -139,7 +139,7 @@ class AccountController extends Controller
 
             // Thiết lập Expires
             $token = $tokenResult->token;
-            $token->expires_at = Carbon::now()->addMinutes(60);
+            $token->expires_at = Carbon::now()->addMinutes(720);
             $token->save();
             // Trả về token
             $accessToken = $tokenResult->accessToken;

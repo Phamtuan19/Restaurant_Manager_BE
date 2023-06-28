@@ -23,7 +23,7 @@ class MenuPageController extends Controller
 
         if (isset($request->categoryId) && !empty($request->categoryId)) {
             $categoryId = explode(',', $request->categoryId);
-            $products = $products->whereIn('category_id', $categoryId);
+            $products = $products->where('category_id', $categoryId);
         }
 
         $products = $products->paginate(static::$PAGINATE_NUMBER);

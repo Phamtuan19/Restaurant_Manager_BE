@@ -9,14 +9,21 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        $products = DB::table('products')
+            ->select('products.*', 'users.name as user_name', 'categories.name as category_name')
+            ->join('users', 'users.id', '=', 'products.user_id')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->paginate(10);
+
         return Response::json([
-            'products' => Product::all(),
+            'products' => $products,
         ], 200);
     }
 
